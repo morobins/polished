@@ -6,6 +6,7 @@ var db = require("../models");
 module.exports = function (app) {
 
   // GET route for getting all of the products
+  //this works
   app.get("/api/products/", function (req, res) {
     db.Products.findAll({})
       .then(function (allProds) {
@@ -16,6 +17,7 @@ module.exports = function (app) {
   });
 
   // Get route for returning products of a specific category
+  //this works
   app.get("/api/products/category/:category", function (req, res) {
     db.Products.findAll({
         where: {
@@ -30,20 +32,21 @@ module.exports = function (app) {
   });
 
   // Get route for retrieving a single product
-  app.get("/api/products/:id", function (req, res) {
-    db.Products.findOne({
-        where: {
-          id: req.params.id
-        }
-      })
-      .then(function (oneProd) {
-        res.json(oneProd);
-      }).catch(function (err) {
-        res.json(err);
-      });
-  });
+  // app.get("/api/products/:id", function (req, res) {
+  //   db.Products.findOne({
+  //       where: {
+  //         id: req.params.id
+  //       }
+  //     })
+  //     .then(function (oneProd) {
+  //       res.json(oneProd);
+  //     }).catch(function (err) {
+  //       res.json(err);
+  //     });
+  // });
 
   // POST route for saving a new product
+  //this works
   app.post("/api/products", function (req, res) {
     console.log(req.body);
     db.Products.create({
