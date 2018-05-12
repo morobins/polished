@@ -1,0 +1,29 @@
+{
+  "name": "polished",
+  "version": "1.0.0",
+  "description": "App to help inventory cosmetics.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morobins/polished.git"
+  },
+  "keywords": [
+    "polished"
+  ],
+  "author": "NOTMEN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/morobins/polished/issues"
+  },
+  "homepage": "https://github.com/morobins/polished#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.7"
+  }
+}
