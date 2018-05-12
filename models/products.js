@@ -19,11 +19,23 @@ module.exports = function(sequelize, DataTypes) {
     },
     favorite: {
       type: DataTypes.BOOLEAN,
-      allowNull: true
+      allowNull: true,
+      set(val) {
+        if (typeof val === "string") {
+          val = 0;
+        }
+        this.setDataValue('favorite', 0)
+      }
     },
     almost_out: {
       type: DataTypes.BOOLEAN,
-      allowNull: true
+      allowNull: true,
+      set(val) {
+        if (typeof val === "string") {
+          val = 0;
+        }
+        this.setDataValue('almost_out', val)
+      }
     },
     notes: {
       type: DataTypes.TEXT,
