@@ -1,4 +1,4 @@
--- Drops the blogger if it exists currently --
-DROP DATABASE IF EXISTS polished;
--- Creates the "blogger" database --
-CREATE DATABASE polished;
+-- Drops the polished if it exists currently --
+DROP DATABASE IF EXISTS polished_db;
+-- Creates the "polished" database --
+CREATE DATABASE polished_db;
