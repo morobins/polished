@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
     dateOfPurchase: {
       type: DataTypes.DATEONLY,
       allowNull: true,
-      defaultValue: sequelize.NOW
+      defaultValue: DataTypes.NOW
     },
     category: {
       type: DataTypes.STRING
