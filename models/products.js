@@ -14,14 +14,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     photo: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
       // defaultValue: .jpg,
     },
     favorite: {
       type: DataTypes.BOOLEAN,
       allowNull: true
     },
-    almostOut: {
+    almost_out: {
       type: DataTypes.BOOLEAN,
       allowNull: true
     },
@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    dateOfPurchase: {
+    date_of_purchase: {
       type: DataTypes.DATEONLY,
       allowNull: true,
       defaultValue: DataTypes.NOW
@@ -37,6 +37,8 @@ module.exports = function(sequelize, DataTypes) {
     category: {
       type: DataTypes.STRING
     }
+  }, {
+    timestamps: false
   });
 
   Products.associate = function(models) {
