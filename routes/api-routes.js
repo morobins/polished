@@ -1,77 +1,90 @@
-// Requiring our Todo model
+// Requiring our Products model
 var db = require("../models");
 
 // Routes
 // =============================================================
-module.exports = function(app) {
+module.exports = function (app) {
 
-  // GET route for getting all of the posts
-  app.get("/api/posts/", function(req, res) {
-    db.Post.findAll({})
-      .then(function(dbPost) {
-        res.json(dbPost);
+  // GET route for getting all of the products
+  app.get("/api/products/", function (req, res) {
+    db.Products.findAll({})
+      .then(function (allProds) {
+        res.json(allProds);
+      }).catch(function (err) {
+        res.json(err);
       });
   });
 
-  // Get route for returning posts of a specific category
-  app.get("/api/posts/category/:category", function(req, res) {
-    db.Post.findAll({
-      where: {
-        category: req.params.category
-      }
-    })
-      .then(function(dbPost) {
-        res.json(dbPost);
-      });
-  });
-
-  // Get route for retrieving a single post
-  app.get("/api/posts/:id", function(req, res) {
-    db.Post.findOne({
-      where: {
-        id: req.params.id
-      }
-    })
-      .then(function(dbPost) {
-        res.json(dbPost);
-      });
-  });
-
-  // POST route for saving a new post
-  app.post("/api/posts", function(req, res) {
-    console.log(req.body);
-    db.Post.create({
-      title: req.body.title,
-      body: req.body.body,
-      category: req.body.category
-    })
-      .then(function(dbPost) {
-        res.json(dbPost);
-      });
-  });
-
-  // DELETE route for deleting posts
-  app.delete("/api/posts/:id", function(req, res) {
-    db.Post.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-      .then(function(dbPost) {
-        res.json(dbPost);
-      });
-  });
-
-  // PUT route for updating posts
-  app.put("/api/posts", function(req, res) {
-    db.Post.update(req.body,
-      {
+  // Get route for returning products of a specific category
+  app.get("/api/products/category/:category", function (req, res) {
+    db.Products.findAll({
         where: {
-          id: req.body.id
+          category: req.params.category
         }
       })
-      .then(function(dbPost) {
-        res.json(dbPost);
+      .then(function (categProd) {
+        res.json(categProd);
+      }).catch(function (err) {
+        res.json(err);
       });
   });
+
+  // Get route for retrieving a single product
+  app.get("/api/products/:id", function (req, res) {
+    db.Products.findOne({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(function (oneProd) {
+        res.json(oneProd);
+      }).catch(function (err) {
+        res.json(err);
+      });
+  });
+
+  // POST route for saving a new product
+  app.post("/api/products", function (req, res) {
+    console.log(req.body);
+    db.Products.create({
+        brand: req.body.brand,
+        product_name: req.body.product_name,
+        color: req.body.color,
+        photo: req.body.photo,
+        category: req.body.category
+      })
+      .then(function (newProd) {
+        res.json(newProd);
+      }).catch(function (err) {
+        res.json(err);
+      });
+  });
+
+  // DELETE route for deleting products
+  app.delete("/api/products/:id", function (req, res) {
+    db.Products.destroy({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(function (deleteProd) {
+        res.json(deleteProd);
+      }).catch(function (err) {
+        res.json(err);
+      });
+  });
+
+  // PUT route for updating products
+  // app.put("/api/products", function (req, res) {
+  //   db.Products.update(req.body, {
+  //       where: {
+  //         id: req.body.id
+  //       }
+  //     })
+  //     .then(function (updateProd) {
+  //       res.json(updateProd);
+  //     }).catch(function (err) {
+  //       res.json(err);
+  //     });
+  // });
 };
