@@ -1,45 +1,54 @@
 // Requiring our Products model
 var db = require("../models");
+var Sequelize = require("sequelize");
+var Op = Sequelize.Op;
 
 // Routes
 // =============================================================
 module.exports = function (app) {
 
-  // GET route for getting all of the products
+  // GET route for getting a specific product or all of the products
   //this works
-  app.get("/api/products/", function (req, res) {
-    db.Products.findAll({})
+  app.get("/api/products", function (req, res) {
+    console.log(req.query);
+    // "/api/products?category=face&brand=smashbox&color=red&product_name=cccream"
+    if (Object.keys(req.query).length !== 0) {
+      db.Products.findAll({
+        where: {
+          [Op.or]: [
+            {brand: req.query.brand}, 
+            {product_name: req.query.product_name}, 
+            {color: req.query.color}, 
+            {category: req.query.category}
+          ] 
+        }
+      })
       .then(function (allProds) {
         res.json(allProds);
       }).catch(function (err) {
         res.json(err);
       });
+    } else {
+      db.Products.findAll({})
+      .then(function (allProds) {
+        res.json(allProds);
+      }).catch(function (err) {
+        res.json(err);
+      });
+    }
+    
   });
 
   // Get route for returning products of a specific category
   //this works
-  app.get("/api/products/category/:category", function (req, res) {
-    db.Products.findAll({
-        where: {
-          category: req.params.category
-        }
-      })
-      .then(function (categProd) {
-        res.json(categProd);
-      }).catch(function (err) {
-        res.json(err);
-      });
-  });
-
-  // Get route for retrieving a single product
-  // app.get("/api/products/:id", function (req, res) {
-  //   db.Products.findOne({
+  // app.get("/api/products/category/:category", function (req, res) {
+  //   db.Products.findAll({
   //       where: {
-  //         id: req.params.id
+  //         category: req.params.category
   //       }
   //     })
-  //     .then(function (oneProd) {
-  //       res.json(oneProd);
+  //     .then(function (categProd) {
+  //       res.json(categProd);
   //     }).catch(function (err) {
   //       res.json(err);
   //     });
