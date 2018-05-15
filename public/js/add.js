@@ -37,7 +37,7 @@ $('#addProd').on('click', function (event) {
   };
 
   $("#brand").val('');
-  $("#product_name").val('');
+  $("#productName").val('');
   $("#color").val('');
   $("#notes").val('');
 
