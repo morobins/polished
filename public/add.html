@@ -1,102 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Polished</title>
-
-  
-<link rel="icon" href="./favicon.png">
+  <link rel="icon" href="./favicon.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
   <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Italianno" rel="stylesheet">
-  
   <link rel="stylesheet" href="css/style.css">
-
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 
 <body id="color-back">
+  <header role="banner">
+    <nav class="main-nav">
+      <ul>
+        <li>
+          <a class="cd-signin" href="home.html">Home</a>
+        </li>
+        <a class="cd-signin" href="collection.html">My Collection</a>
+      </ul>
+    </nav>
+  </header>
 
-
-    <header role="banner">
-	
-        <nav class="main-nav">
-               <ul>
-                   
-                    <li><a class="cd-signin" href="home.html">Home</a></li>
-                    <a class="cd-signin" href="collection.html">My Collection</a>
-                 </ul>
-            </nav>
-
-            </header>
-
- <div class="container">
-
-  <form id=add>
-
+  <div class="container">
+    <form id='add'>
       <div class="row mt-5">
-          <div class="col-md-8 offset-md-2 mt-5">
-            <div class="products-container">
-              <h1>My Collection</h1>
+        <div class="col-md-8 offset-md-2 mt-5">
+          <div class="products-container">
+            <h1>My Collection</h1>
+            <br>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Category</label>
+              <select class="form-control" id="category">
+                <option>Nails</option>
+                <option>Face</option>
+                <option>Mascara</option>
+                <option>Lips</option>
+                <option>Eyes</option>
+                <option>Brows</option>
+                <option>Cheeks</option>
+                <option>Misc.</option>
+              </select>
+            </div>
 
-<br>
-              <div class="form-group">
-                  <label for="exampleFormControlSelect1">Category</label>
-                  <select class="form-control" id="category">
-                    <option>Nails</option>
-                    <option>Face</option>
-                    <option>Mascara</option>
-                    <option>Lips</option>
-                    <option>Eyes</option>
-                    <option>Brows</option>
-                    <option>Cheeks</option>
-                    <option>Misc.</option>
-                  </select>
-                </div>
-  
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Brand</label>
+              <input type="text" class="form-control" id="brand">
+            </div>
 
-    <div class="form-group">
-        <label for="exampleFormControlInput1">Brand</label>
-        <input type="brand" class="form-control" id="brand">
-      </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Product Name</label>
+              <input type="text" class="form-control" id="productName">
+            </div>
 
-      <div class="form-group">
-          <label for="exampleFormControlInput1">Product Name</label>
-          <input type="productName" class="form-control" id="productName">
-        </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Color</label>
+              <input type="text" class="form-control" id="color">
+            </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Color</label>
-            <input type="email" class="form-control" id="color">
-          </div>
+            <label for="body">Notes:</label>
+            <textarea class="form-control" rows="10" id="notes"></textarea>
 
-          <label for="body">Notes:</label>
-            <textarea class="form-control" rows="10" id="comment"></textarea>
-
-          <div class="form-group">
+            <div class="form-group">
               <label for="exampleFormControlFile1">Upload Photo</label>
               <input type="file" class="form-control-file" id="photo">
-              <!-- <label for="exampleFormControlInput1">Upload Photo</label>
-              <input type="email" class="form-control" id="photo"> -->
-<br>
+              <br>
 
-              <button id="addsub" type="button" class="btn btn-outline-warning offset-md-5">Submit</button>
+              <button id="addProd" type="button" class="btn btn-outline-warning offset-md-5">Submit</button>
             </div>
-    
-  </form>
-
-</div>
-
-
-
-
-
-
-
-
+    </form>
+    </div>
+    <script src='./js/add.js'></script>
 </body>
+
 </html>

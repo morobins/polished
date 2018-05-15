@@ -63,7 +63,8 @@ module.exports = function (app) {
         product_name: req.body.product_name,
         color: req.body.color,
         photo: req.body.photo,
-        category: req.body.category
+        category: req.body.category,
+        notes: req.body.notes
       })
       .then(function (newProd) {
         res.json(newProd);
