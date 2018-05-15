@@ -21,18 +21,21 @@ $(document).ready(function() {
   var photoInput = $("#photo");
   var postCategorySelect = $("#category");
   // Giving the postCategorySelect a default value
-  postCategorySelect.val("Personal");
+  postCategorySelect.val("Nails");
   // Adding an event listener for when the form is submitted
   $(addForm).on("submit", function handleFormSubmit(event) {
     event.preventDefault();
-    // Wont submit the post if we are missing a body or a title
-    if (!titleInput.val().trim() || !bodyInput.val().trim()) {
+    // Won't submit the post if we are missing a category
+    if (!postCategorySelect.val().trim()) {
       return;
     }
     // Constructing a newPost object to hand to the database
     var newPost = {
-      title: titleInput.val().trim(),
-      body: bodyInput.val().trim(),
+      brand: brandInput.val().trim(),
+      product: productInput.val().trim(),
+      color: colorInput.val().trim(),
+      comment: commentInput.val().trim(),
+photo: photoInput.val(),
       category: postCategorySelect.val()
     };
 
@@ -51,18 +54,22 @@ $(document).ready(function() {
 
   // Submits a new post and brings user to blog page upon completion
   function submitPost(Post) {
-    $.post("/api/posts/", Post, function() {
-      window.location.href = "/blog";
+    console.log('subbmitting!');
+    $.post("/api/products/", Post, function() {
+      window.location.href = "/collection";
     });
   }
 
   // Gets post data for a post if we're editing
   function getPostData(id) {
-    $.get("/api/posts/" + id, function(data) {
+    $.get("/api/products/" + id, function(data) {
       if (data) {
         // If this post exists, prefill our add forms with its data
-        titleInput.val(data.title);
-        bodyInput.val(data.body);
+        brandInput.val(data.brand);
+        productInput.val(data.productName);
+        colorInput.val(data.color);
+        commentInput.val(data.comment);
+        photoInput.val(data.photo);
         postCategorySelect.val(data.category);
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit
@@ -75,11 +82,11 @@ $(document).ready(function() {
   function updatePost(post) {
     $.ajax({
       method: "PUT",
-      url: "/api/posts",
+      url: "/api/products",
       data: post
     })
       .then(function() {
-        window.location.href = "/blog";
+        window.location.href = "/collection";
       });
   }
 });
