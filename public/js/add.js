@@ -41,15 +41,28 @@ $(document).ready(function() {
 
     console.log(newPost);
 
-    $.post("/api/products", newPost)
-        .done(function (data) {
-          console.log(data);
-          // console.log("name is: " + data.name)
-          // $("#resultsModal").modal('toggle');
-          // $("#bestFriend").text(data.name);
-          // $('#friendImage').attr("src", data.photo);
+    $.ajax({
+      method: 'POST',
+      url: '/api/products',
+      data: newPost
+    }).then(function(data) {
+      console.log(data);
+      // if (matchedFriend.found) {
+      //   $('.match-name').text(matchedFriend.name);
+      //   $('#match-image').attr('src', matchedFriend.photo);
+      //   $('#answer-modal').modal('show');
+      // }
+    });
 
-        });
+    // $.post("/api/products", newPost)
+    //     .done(function (data) {
+    //       console.log(data);
+    //       // console.log("name is: " + data.name)
+    //       // $("#resultsModal").modal('toggle');
+    //       // $("#bestFriend").text(data.name);
+    //       // $('#friendImage').attr("src", data.photo);
+
+    //     });
     
 
   //   // If we're updating a post run updatePost to update a post
