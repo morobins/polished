@@ -1,92 +1,49 @@
-$(document).ready(function() {
-  // Gets an optional query string from our url (i.e. ?post_id=23)
-  var url = window.location.search;
-  var postId;
-  // Sets a flag for whether or not we're updating a post to be false initially
-  var updating = false;
+$('#addProd').on('click', function (event) {
+  event.preventDefault();
 
-  // If we have this section in our url, we pull out the post id from the url
-  // In localhost:8080/add?post_id=1, postId is 1
-  if (url.indexOf("?post_id=") !== -1) {
-    postId = url.split("=")[1];
-    getPostData(postId);
-  }
+  // let validate = true;
 
-  // Getting jQuery references to the post body, title, form, and category select
-  var addForm = $("#add");
-  var brandInput = $("#brand");
-  var productInput = $("#productName");
-  var colorInput = $("#color");
-  var commentInput = $("#comment");
-  var photoInput = $("#photo");
-  var postCategorySelect = $("#category");
-  // Giving the postCategorySelect a default value
-  postCategorySelect.val("Nails");
-  // Adding an event listener for when the form is submitted
-  $(addForm).on("submit", function handleFormSubmit(event) {
-    event.preventDefault();
-    // Won't submit the post if we are missing a category
-    if (!postCategorySelect.val().trim()) {
-      return;
-    }
-    // Constructing a newPost object to hand to the database
-    var newPost = {
-      brand: brandInput.val().trim(),
-      product: productInput.val().trim(),
-      color: colorInput.val().trim(),
-      comment: commentInput.val().trim(),
-photo: photoInput.val(),
-      category: postCategorySelect.val()
-    };
+  // if ($('.name-validate').val() === '') {
+  //   validate = false;
+  //   $('.name-validate').addClass('is-invalid');
+  //   return false;
+  // } else {
+  //   $('.name-validate').removeClass('is-invalid');
+  // };
 
-    console.log(newPost);
+  // if ($('.photo-validate').val() === '') {
+  //   validate = false;
+  //   $('.photo-validate').addClass('is-invalid');
+  //   return false;
+  // } else {
+  //   $('.photo-validate').removeClass('is-invalid');
+  // };
 
-    // If we're updating a post run updatePost to update a post
-    // Otherwise run submitPost to create a whole new post
-    if (updating) {
-      newPost.id = postId;
-      updatePost(newPost);
-    }
-    else {
-      submitPost(newPost);
-    }
-  });
+  // if ($('.custom-select').val() === '') {
+  //   validate = false;
+  //   $('.custom-select').addClass('is-invalid');
+  //   return false;
+  // } else {
+  //   $('.custom-select').removeClass('is-invalid');
+  // };
 
-  // Submits a new post and brings user to blog page upon completion
-  function submitPost(Post) {
-    console.log('subbmitting!');
-    $.post("/api/products/", Post, function() {
-      window.location.href = "/collection";
-    });
-  }
+  //grab input values from product form
+  var newProduct = {
+    category: $('#category').val(),
+    brand: $('#brand').val().trim(),
+    product_name: $('#productName').val().trim(),
+    color: $('#color').val().trim(),
+    notes: $('#notes').val()
+  };
 
-  // Gets post data for a post if we're editing
-  function getPostData(id) {
-    $.get("/api/products/" + id, function(data) {
-      if (data) {
-        // If this post exists, prefill our add forms with its data
-        brandInput.val(data.brand);
-        productInput.val(data.productName);
-        colorInput.val(data.color);
-        commentInput.val(data.comment);
-        photoInput.val(data.photo);
-        postCategorySelect.val(data.category);
-        // If we have a post with this id, set a flag for us to know to update the post
-        // when we hit submit
-        updating = true;
-      }
-    });
-  }
+  $("#brand").val('');
+  $("#productName").val('');
+  $("#color").val('');
+  $("#notes").val('');
 
-  // Update a given post, bring user to the blog page when done
-  function updatePost(post) {
-    $.ajax({
-      method: "PUT",
-      url: "/api/products",
-      data: post
+  //POST into products
+  $.post('/api/products', newProduct)
+    .then(function(data) {
+      console.log(data);
     })
-      .then(function() {
-        window.location.href = "/collection";
-      });
-  }
 });
