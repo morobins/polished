@@ -7,7 +7,7 @@
   <title>Polished</title>
 
   
-<link rel="icon" href="./favicon.jpg">
+<link rel="icon" href="./favicon.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
   <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Italianno" rel="stylesheet">
@@ -27,8 +27,8 @@
         <nav class="main-nav">
                <ul>
                    
-                    <li><a class="cd-signin" href="index.html">Home</a></li>
-                    <a class="cd-signin" href="/collection">My Collection</a>
+                    <li><a class="cd-signin" href="home.html">Home</a></li>
+                    <a class="cd-signin" href="collection.html">My Collection</a>
                  </ul>
             </nav>
 
@@ -41,18 +41,18 @@
       <div class="row mt-5">
           <div class="col-md-8 offset-md-2 mt-5">
             <div class="products-container">
-              <h1>My Products</h1>
+              <h1>My Collection</h1>
 
 <br>
               <div class="form-group">
-                  <label for="exampleFormControlSelect1">Categories</label>
+                  <label for="exampleFormControlSelect1">Category</label>
                   <select class="form-control" id="category">
                     <option>Nails</option>
                     <option>Face</option>
                     <option>Mascara</option>
                     <option>Lips</option>
                     <option>Eyes</option>
-                    <option>Eyebrows</option>
+                    <option>Brows</option>
                     <option>Cheeks</option>
                     <option>Misc.</option>
                   </select>
@@ -61,25 +61,27 @@
 
     <div class="form-group">
         <label for="exampleFormControlInput1">Brand</label>
-        <input type="brand" class="form-control" id="brand" placeholder="Brand">
+        <input type="brand" class="form-control" id="brand">
       </div>
 
       <div class="form-group">
           <label for="exampleFormControlInput1">Product Name</label>
-          <input type="productName" class="form-control" id="productName" placeholder="Product Name">
+          <input type="productName" class="form-control" id="productName">
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Color</label>
-            <input type="email" class="form-control" id="color" placeholder="Color">
+            <input type="email" class="form-control" id="color">
           </div>
 
-          <label for="body">Comments:</label>
+          <label for="body">Notes:</label>
             <textarea class="form-control" rows="10" id="comment"></textarea>
 
           <div class="form-group">
-              <label for="exampleFormControlInput1">Upload Photo</label>
-              <input type="email" class="form-control" id="photo" placeholder="Upload Photo Here">
+              <label for="exampleFormControlFile1">Upload Photo</label>
+              <input type="file" class="form-control-file" id="photo">
+              <!-- <label for="exampleFormControlInput1">Upload Photo</label>
+              <input type="email" class="form-control" id="photo"> -->
 <br>
 
               <button id="addsub" type="button" class="btn btn-outline-warning offset-md-5">Submit</button>
