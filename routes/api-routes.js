@@ -133,11 +133,11 @@ module.exports = function (app) {
   app.post("/api/signup", function (req, res) {
 
     // Create a new instance of formidable to handle the request info
-    // var form = new formidable.IncomingForm();
+    var form = new formidable.IncomingForm();
 
     // // parse information for form fields and incoming files
-    // form.parse(req, function (err, fields, files) {
-    //   console.log(fields);
+    form.parse(req, function (err, fields) {
+      console.log(fields);
 
       // if (files.photo) {
       //   // upload file to cloudinary, which'll return an object for the new image
@@ -168,6 +168,7 @@ module.exports = function (app) {
           // res.status(422).json(err.errors[0].message);
         });
       });
+    });
     
 
 
