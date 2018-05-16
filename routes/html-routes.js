@@ -2,9 +2,21 @@
 // =============================================================
 var path = require("path");
 
+// Requiring our custom middleware for checking if a user is logged in
+var isAuthenticated = require("../config/middleware/isAuthenticated");
+
+
 // Routes
 // =============================================================
 module.exports = function(app) {
+
+  app.get("/", function(req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/home");
+    }
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
 
   // Each of the below routes just handles the HTML page that the user gets sent to.
 
@@ -31,6 +43,14 @@ module.exports = function(app) {
   //to view full collection inventory
   app.get("/collection", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/collection.html"));
+  });
+
+  app.get("/login", function(req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/home");
+    }
+    res.sendFile(path.join(__dirname, "../public/home.html"));
   });
 
 };
