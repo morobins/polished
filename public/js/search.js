@@ -1,12 +1,19 @@
-// "/api/products?category=face&brand=smashbox&color=red&product_name=cccream"
+$('#searchsub').on('click', function (event) {
+  event.preventDefault();
 
-// var showInput = $(this).attr('data-name');
-// var queryURL =
-//   'https://api.giphy.com/v1/gifs/search?api_key=qVceYfjJGpS4ovfu8seNpK6Zg9i4atGR&q=' +
-//   showInput + "&limit=10";
+  var categoryInput = $('#category').val;
+  var brandInput = $('#brand').val().trim();
+  var productInput = $('#product').val().trim();
+  var colorInput = $('#color').val().trim();
 
-// $.ajax({
-//   url: queryURL,
-//   method: 'GET'
-// }).then(function (gifData) {
-//   console.log(gifData);
+  var queryURL =
+    "/api/products?category=" + categoryInput + "&brand=" + brandInput + "&color=" + colorInput + "&product_name=" + productInput;
+
+  $.ajax({
+    url: queryURL,
+    method: 'GET'
+  }).then(function (results) {
+    res.json(results);
+    console.log(results);
+  });
+});

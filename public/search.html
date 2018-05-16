@@ -1,70 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Polished</title>
-
-  
-<link rel="icon" href="./favicon.png">
+  <link rel="icon" href="./favicon.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
   <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Italianno" rel="stylesheet">
-  
   <link rel="stylesheet" href="css/style.css">
-
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
 </head>
 
 <body id="color-back">
+  <header role="banner">
+    <nav class="main-nav">
+      <ul>
+        <li>
+          <a class="cd-signin" href="home.html">Home</a>
+        </li>
+        <a class="cd-signin" href="collection.html">My Collection</a>
+      </ul>
+    </nav>
+  </header>
 
-    <header role="banner">
-	
-        <nav class="main-nav">
-               <ul>
-                   
-                    <li><a class="cd-signin" href="home.html">Home</a></li>
-                    <a class="cd-signin" href="collection.html">My Collection</a>
-                 </ul>
-            </nav>
-
-            </header>
-
- <div class="container">
-
-  <form>
-
+  <div class="container">
+    <form>
       <div class="row mt-5">
-          <div class="col-md-8 offset-md-2 mt-5">
-            <div class="author-container">
-              <h1>Search My Collection</h1>
+        <div class="col-md-8 offset-md-2 mt-5">
+          <div class="author-container">
+            <h1>Search My Collection</h1>
+            <br>
+            <div class="form-group">
+               <label for="exampleFormControlSelect1"></label>
+              <select class="form-control" id="category">
+                  <option selected>Search by Category</option>
+                  <option value="nails">Nails</option>
+                  <option value="face">Face</option>
+                  <option value="mascara">Mascara</option>
+                  <option value="lips">Lips</option>
+                  <option value="eyes">Eyes</option>
+                  <option value="brows">Brows</option>
+                  <option value="cheeks">Cheeks</option>
+                  <option value="misc">Misc</option>
+              </select>
+              <br>
+              <label for="exampleFormControlInput1"></label>
+              <input type="search" class="form-control" id="brand" placeholder="Search by Brand">
+              <br>
+              <label for="exampleFormControlInput1"></label>
+              <input type="search" class="form-control" id="product" placeholder="Search by Product Name">
+              <br>
+              <label for="exampleFormControlInput1"></label>
+              <input type="search" class="form-control" id="color" placeholder="Search by Color">
+              <br>
+              <button id="searchsub" type="button" class="btn btn-outline-dark offset-md-5">Submit</button>
+            </div>
+    </form>
+  </div>
 
-<br>
-              
-
-    <div class="form-group">
-        <label for="exampleFormControlInput1"></label>
-        <input type="search" class="form-control" id="brand" placeholder="Enter Search Here">
-        <br>
-
-        <button id="searchsub" type="button" class="btn btn-outline-warning offset-md-5">Submit</button>
-
-      </div>
-
-     
-  </form>
-
-</div>
-
-
-
-
-
-
-
-
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>
