@@ -70,21 +70,51 @@ module.exports = function (app) {
 
   // POST route for saving a new product
   //this works
-  app.post("/api/products", function (req, res) {
-    console.log(req.body);
-    db.Products.create({
-        brand: req.body.brand,
-        product_name: req.body.product_name,
-        color: req.body.color,
-        photo: req.body.photo,
-        category: req.body.category,
-        notes: req.body.notes
-      })
-      .then(function (newProd) {
-        res.json(newProd);
-      }).catch(function (err) {
-        res.json(err);
-      });
+  app.post("/api/add", function (req, res) {
+
+    // Create a new instance of formidable to handle the request info
+    var form = new formidable.IncomingForm();
+
+    // parse information for form fields and incoming files
+    form.parse(req, function (err, fields, files) {
+      console.log(fields);
+      console.log(files.photo);
+
+      if (files.photo) {
+        // upload file to cloudinary, which'll return an object for the new image
+        cloudinary.uploader.upload(files.photo.path, function (result) {
+          console.log(result);
+          // create new user
+          db.Products.create({
+            category: fields.category,
+            brand: fields.brand,
+            product_name: fields.product_name,
+            color: fields.color,
+            notes: fields.notes,
+            photo: result.secure_url
+          }).then(function () {
+            res.json("/add");
+          }).catch(function (err) {
+            console.log(err);
+            res.json(err);
+          });
+        });
+      } else {
+        db.Products.create({
+            category: fields.category,
+            brand: fields.brand,
+            product_name: fields.product_name,
+            color: fields.color,
+            notes: fields.notes,
+        }).then(function (newProduct) {
+          res.json(newProduct);
+        }).catch(function (err) {
+          console.log(err);
+          res.json(err);
+        });
+      }
+    });
+
   });
 
   // DELETE route for deleting products
@@ -114,15 +144,12 @@ module.exports = function (app) {
   //       res.json(err);
   //     });
   // });
+
 //======================================================//
-//Start with user authentication api-routes
+
     // Using the passport.authenticate middleware with our local strategy.
-  // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
     // So we're sending the user back the route to the members page because the redirect will happen on the front end
-    // They won't get this or even be able to access this page if they aren't authed
     console.log(req.user);
     res.json("/home");
   });
@@ -138,27 +165,10 @@ module.exports = function (app) {
     // // parse information for form fields and incoming files
     form.parse(req, function (err, fields) {
       console.log(fields);
-
-      // if (files.photo) {
-      //   // upload file to cloudinary, which'll return an object for the new image
-      //   cloudinary.uploader.upload(files.photo.path, function (result) {
-      //     console.log(result);
-      //     // create new user
-      //     db.User.create({
-      //       email: fields.email,
-      //       password: fields.password,
-      //       photo: result.secure_url
-      //     }).then(function () {
-      //       res.json("/login");
-      //     }).catch(function (err) {
-      //       console.log(err);
-      //       res.json(err);
-      //     });
-      //   });
-      // } else {
         db.User.create({
           email: fields.email,
           password: fields.password,
+
         }).then(function (userInfo) {
           req.login(userInfo, function (err) {
             if (err) {
@@ -168,7 +178,8 @@ module.exports = function (app) {
             console.log(req.user);
             res.json("/home");
 
-          })
+          });
+          
           // res.redirect(307, "/api/login");
         }).catch(function (err) {
           console.log(err);
