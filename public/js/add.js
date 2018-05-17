@@ -25,10 +25,12 @@ $(document).ready(function () {
     console.log($("#file-input").prop("files"));
 
     addProduct(formData);
+    categoryInput.val("Select a Category");
     brandInput.val("");
     productNameInput.val("");
     colorInput.val("");
     notesInput.val("");
+    $("#file-input").val("");
   });
 
   // Does a post to the add route.
@@ -43,6 +45,7 @@ $(document).ready(function () {
       method: 'POST',
     }).then(function (data) {
       console.log(data);
+      $("#added").text("Your product has been added!")
     });
   }
 
