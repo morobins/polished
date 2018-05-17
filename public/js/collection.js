@@ -2,71 +2,97 @@ $(document).ready(function () {
   /* global moment */
 
   function displayCards() {
-    $('.card').empty();
+    // $('.card').empty();
 
     $.ajax({
       url: "/api/products",
       method: 'GET',
     }).then(function (results) {
-      res.json(results);
       console.log(results);
+
       for (var i = 0; i < results.length; i++) {
 
-        // cardContainer holds all of our posts
-        var cardContainer = $(".card-columns");
-        var postCategorySelect = $("#category");
-        // Click events for the edit and delete buttons
-        
-        // Variable to hold our posts
-        var posts;
+        // console.log(response.hits[i])
+        var cardHolder = $(".card-columns")
+        //create a div with a col class
+        var cardCol = $('<div>');
+        cardCol.addClass("col s4");
 
-        var newPostCard = $("<div>");
-        newPostCard.addClass("card");
-        var newPostCardHeading = $("<div>");
-        newPostCardHeading.addClass("card-header");
-        var newPostCardBody = $("<div>");
-        newPostCardBody.addClass("card-body");
+        //create the card
+        var card = $('<div>');
+        card.addClass("card");
+        card.attr("width", "18rem");
+
+        //add image
+        var cardImage = $('<img>');
+        cardImage.addClass('card-img-top');
+        cardImage.attr("src", results[i].photo);
+        cardImage.attr("alt", "cosmetics photo");
+
+        //create card content
+        var cardContent = $('<div>');
+        cardContent.addClass('card-body');
+
+        //add Title
+        var cardTitle = $('<h5>');
+        cardTitle.addClass('card-title');
+        cardTitle.html("Brand: " + results[i].brand)
+        cardContent.prepend(cardTitle);
+
+        //show color of selected cosmetic
+        var cardColor = $('<p>');
+        cardColor.html("Color: " + results[i].color);
+        cardContent.append(cardColor);
+
+        //create delete button
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr("data-productid", results[i].id)
-        deleteBtn.addClass("delete btn btn-danger");
+        deleteBtn.addClass("delete btn btn-outline-danger");
+        cardContent.append(deleteBtn);
+
+        //show edit button
         var editBtn = $("<button>");
         editBtn.text("Edit");
         editBtn.attr("data-productid", results[i].id)
+        editBtn.addClass("edit btn btn-outline-secondary");
+        cardContent.append(editBtn);
 
-        editBtn.addClass("edit btn btn-info");
-
-
-        var cardImage = $("<img>");
-        cardImage.addClass("card-img-top").attr("src", post.imgUrl)
-
-
+        card.append(cardImage);
+        card.append(cardContent);
+        cardCol.append(card);
+        cardHolder.append(cardCol);
       }
+     
     });
 
+  };
 
+  displayCards();
 
-  }
-
-  // This function figures out which post we want to delete and then calls deletePost
+  // This function figures out which post we want to delete and then calls deletePost and reloads the page
   function handlePostDelete() {
     var currentProduct = $(this).attr("data-productid")
     $.ajax({
       url: "/api/products/" + currentProduct,
       method: "DELETE"
     }).then(function(data) {
+      window.location.href = "/collection"
       console.log(data);
     })
   }
 
   // This function figures out which post we want to edit and takes it to the appropriate url
+
+  //This doesn't work for us because we don't have individual pages for each product - we can choose to not update or figure out a different way to do this. 
   function handlePostEdit() {
     var currentProduct = $(this).attr("data-productid")
 
     window.location.href = "/add?post_id=" + currentProduct.id;
   }
+  
   $(document).on("click", "button.delete", handlePostDelete);
-  $(document).on("click", "button.edit", handlePostEdit);
 
+  $(document).on("click", "button.edit", handlePostEdit);
 
 });
