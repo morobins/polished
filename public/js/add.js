@@ -1,49 +1,54 @@
-$('#addProd').on('click', function (event) {
-  event.preventDefault();
+$(document).ready(function () {
+  // Getting references to our form and input
+  var addForm = $("form#add");
+  var categoryInput = $("select#category");
+  var brandInput = $("input#brand");
+  var productNameInput = $("input#productName");
+  var colorInput = $("input#color");
+  var notesInput = $("textarea#notes");
 
-  // let validate = true;
+  // When the submit button is clicked, we grab and append the values from form
+  addForm.on("submit", function (event) {
+    event.preventDefault();
+    // Use FormData constructor to build a new multipart form (for handling images)
+    var formData = new FormData();
+    formData.append("category", categoryInput.val());
+    formData.append("brand", brandInput.val().trim());
+    formData.append("product_name", productNameInput.val().trim());
+    formData.append("color", colorInput.val().trim());
+    formData.append("notes", notesInput.val().trim());
 
-  // if ($('.name-validate').val() === '') {
-  //   validate = false;
-  //   $('.name-validate').addClass('is-invalid');
-  //   return false;
-  // } else {
-  //   $('.name-validate').removeClass('is-invalid');
-  // };
+    if ($("#file-input").prop("files")[0], $("#file-input").prop("files")[0]) {
+      // append photo information to form (photo: {objOfPhotoInfo})
+      formData.append("photo", $("#file-input").prop("files")[0], $("#file-input").prop("files")[0].name);
+    }
+    console.log($("#file-input").prop("files"));
 
-  // if ($('.photo-validate').val() === '') {
-  //   validate = false;
-  //   $('.photo-validate').addClass('is-invalid');
-  //   return false;
-  // } else {
-  //   $('.photo-validate').removeClass('is-invalid');
-  // };
+    addProduct(formData);
+    brandInput.val("");
+    productNameInput.val("");
+    colorInput.val("");
+    notesInput.val("");
+  });
 
-  // if ($('.custom-select').val() === '') {
-  //   validate = false;
-  //   $('.custom-select').addClass('is-invalid');
-  //   return false;
-  // } else {
-  //   $('.custom-select').removeClass('is-invalid');
-  // };
-
-  //grab input values from product form
-  var newProduct = {
-    category: $('#category').val(),
-    brand: $('#brand').val().trim(),
-    product_name: $('#productName').val().trim(),
-    color: $('#color').val().trim(),
-    notes: $('#notes').val()
-  };
-
-  $("#brand").val('');
-  $("#productName").val('');
-  $("#color").val('');
-  $("#notes").val('');
-
-  //POST into products
-  $.post('/api/products', newProduct)
-    .then(function(data) {
+  // Does a post to the add route.
+  // Otherwise we log any errors
+  function addProduct(formData) {
+    $.ajax({
+      url: "/api/add",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      method: 'POST',
+    }).then(function (data) {
       console.log(data);
-    })
+    });
+  }
+
+  function handleLoginErr(err) {
+    console.log(err);
+    $("#alert .msg").text(err);
+    $("#alert").fadeIn(500);
+  }
 });
