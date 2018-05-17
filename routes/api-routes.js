@@ -168,8 +168,18 @@ module.exports = function (app) {
         db.User.create({
           email: fields.email,
           password: fields.password,
-        }).then(function () {
-          res.json("/home");
+
+        }).then(function (userInfo) {
+          req.login(userInfo, function (err) {
+            if (err) {
+              console.log(err)
+              return res.status(422).json(err);
+            }
+            console.log(req.user);
+            res.json("/home");
+
+          });
+          
           // res.redirect(307, "/api/login");
         }).catch(function (err) {
           console.log(err);
@@ -189,12 +199,14 @@ module.exports = function (app) {
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", function (req, res) {
+    console.log(req.user);
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
+      console.log(req.user);
       res.json({
         email: req.user.email,
         id: req.user.id
