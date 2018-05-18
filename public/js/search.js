@@ -3,7 +3,6 @@ $('#searchsub').on('click', function (event) {
   $("form").hide();
 
   function displayResults() {
-  $(".card").show();
 
   var categoryInput = $('#category').val();
   var brandInput = $('#brand').val().trim();
@@ -11,7 +10,7 @@ $('#searchsub').on('click', function (event) {
   var colorInput = $('#color').val().trim();
 
   var queryURL =
-    "/api/products?category=" + categoryInput + "&brand=" + brandInput + "&color=" + colorInput + "&product_name=" + productInput;
+    "/api/products?category=" + categoryInput || "&brand=" + brandInput || "&color=" + colorInput || "&product_name=" + productInput;
 
   $.ajax({
     url: queryURL,
@@ -74,9 +73,6 @@ $('#searchsub').on('click', function (event) {
       cardHolder.append(cardCol);
     }
   });
-
   }
-
   displayResults();
-  
 });
