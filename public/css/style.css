@@ -39,6 +39,10 @@ input::-ms-clear, textarea::-ms-clear {
   display: none;
 }
 
+.btn {
+  margin: 2px;
+}
+
 /* -------------------------------- 
 
 Main components 

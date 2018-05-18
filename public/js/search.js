@@ -1,4 +1,8 @@
 $('#searchsub').on('click', function (event) {
+
+  $("form").hide();
+ 
+
   event.preventDefault();
   $("form").hide();
 
@@ -73,6 +77,7 @@ $('#searchsub').on('click', function (event) {
       cardHolder.append(cardCol);
     }
   });
+
   }
   displayResults();
 });
