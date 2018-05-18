@@ -39,7 +39,7 @@ input::-ms-clear, textarea::-ms-clear {
   display: none;
 }
 
-.btn {
+.btnMargin {
   margin: 2px;
 }
 

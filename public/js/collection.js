@@ -48,14 +48,14 @@ $(document).ready(function () {
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr("data-productid", results[i].id)
-        deleteBtn.addClass("delete btn btn-outline-danger");
+        deleteBtn.addClass("delete btn btn-outline-danger btnMargin");
         cardContent.append(deleteBtn);
 
         //show edit button
         var editBtn = $("<button>");
         editBtn.text("Edit");
         editBtn.attr("data-productid", results[i].id)
-        editBtn.addClass("edit btn btn-outline-secondary");
+        editBtn.addClass("edit btn btn-outline-secondary btnMargin");
         cardContent.append(editBtn);
 
         card.append(cardImage);
