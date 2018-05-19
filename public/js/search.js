@@ -32,7 +32,7 @@ $('#searchsub').on('click', function (event) {
         //create the card
         var card = $('<div>');
         card.addClass("card");
-        card.attr("width", "18rem");
+        card.attr("width", "24rem");
 
         //add image
         var cardImage = $('<img>');
@@ -58,15 +58,17 @@ $('#searchsub').on('click', function (event) {
         //create delete button
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
-        deleteBtn.attr("data-productid", results[i].id)
+        deleteBtn.attr("data-productid", results[i].id);
+        deleteBtn.attr("data-toggle", "popover");
+        deleteBtn.attr("data-content", "This product has been deleted!");
         deleteBtn.addClass("delete btn btn-outline-danger");
         cardContent.append(deleteBtn);
 
         //show edit button
         var editBtn = $("<a>");
         editBtn.text("Edit");
-        editBtn.attr("data-productid", results[i].id)
-        editBtn.attr("href", "/add?product_id=" + results[i].id)
+        editBtn.attr("data-productid", results[i].id);
+        editBtn.attr("href", "/add?product_id=" + results[i].id);
         editBtn.addClass("edit btn btn-outline-secondary");
         cardContent.append(editBtn);
 
@@ -78,6 +80,7 @@ $('#searchsub').on('click', function (event) {
     });
 
   }
+
   displayResults();
 
   // This function figures out which post we want to delete and then calls deletePost and reloads the page
@@ -87,6 +90,7 @@ $('#searchsub').on('click', function (event) {
       url: "/api/products/" + currentProduct,
       method: "DELETE"
     }).then(function (data) {
+     
       // displayResults();
       // window.location.href = "/search"
       console.log(data);
@@ -98,9 +102,13 @@ $('#searchsub').on('click', function (event) {
     var currentProduct = $(this).attr("data-productid")
 
     window.location.href = "/add?post_id=" + currentProduct.id;
-  }
+  };
 
-  $(document).on("click", "button.delete", handlePostDelete);
+  $(document).on("click", "button.delete",  function () {
+    console.log("hi");
+    $(this).popover();
+    handlePostDelete();
+  }); 
 
   $(document).on("click", "button.edit", handlePostEdit);
 
