@@ -52,9 +52,10 @@ $(document).ready(function () {
         cardContent.append(deleteBtn);
 
         //show edit button
-        var editBtn = $("<button>");
+        var editBtn = $("<a>");
         editBtn.text("Edit");
         editBtn.attr("data-productid", results[i].id)
+        editBtn.attr("href", "/add?product_id="+ results[i].id)
         editBtn.addClass("edit btn btn-outline-secondary btnMargin");
         cardContent.append(editBtn);
 
@@ -84,11 +85,16 @@ $(document).ready(function () {
 
   // This function figures out which post we want to edit and takes it to the appropriate url
 
-  //This doesn't work for us because we don't have individual pages for each product - we can choose to not update or figure out a different way to do this. 
   function handlePostEdit() {
     var currentProduct = $(this).attr("data-productid")
-
-    window.location.href = "/add?post_id=" + currentProduct.id;
+    $.ajax({
+      url: "/api/products/" + currentProduct,
+      method: "PUT"
+    }).then(function(data) {
+      window.location.href = "/add?post_id=" + currentProduct.id;
+      console.log(data);
+    })
+    
   }
   
   $(document).on("click", "button.delete", handlePostDelete);

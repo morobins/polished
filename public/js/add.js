@@ -1,4 +1,19 @@
 $(document).ready(function () {
+
+  // Gets an optional query string from our url (i.e. ?post_id=23)
+  var url = window.location.search;
+  var productId;
+  var photoUrl;
+  // Sets a flag for whether or not we're updating a post to be false initially
+  var updating = false;
+
+  // If we have this section in our url, we pull out the post id from the url
+  // In localhost:8080/cms?post_id=1, postId is 1
+  if (url.indexOf("?product_id=") !== -1) {
+    productId = url.split("=")[1];
+    getProductData(productId);
+  }
+
   // Getting references to our form and input
   var addForm = $("form#add");
   var categoryInput = $("select#category");
@@ -17,24 +32,37 @@ $(document).ready(function () {
     formData.append("product_name", productNameInput.val().trim());
     formData.append("color", colorInput.val().trim());
     formData.append("notes", notesInput.val().trim());
-
-    if ($("#file-input").prop("files")[0], $("#file-input").prop("files")[0]) {
+    console.log(formData);
+    console.log(colorInput.val().trim());
+    if ($("#file-input").prop("files")[0]) {
       // append photo information to form (photo: {objOfPhotoInfo})
+      console.log($("#file-input").prop("files"));
       formData.append("photo", $("#file-input").prop("files")[0], $("#file-input").prop("files")[0].name);
+    } else {
+      formData.append("photo", photoUrl);
     }
-    console.log($("#file-input").prop("files"));
 
-    addProduct(formData);
     categoryInput.val("Select a Category");
     brandInput.val("");
     productNameInput.val("");
     colorInput.val("");
     notesInput.val("");
     $("#file-input").val("");
+
+    console.log("This is:", formData);
+    console.log("is this updating?", updating);
+    // Does a post to the add route.
+    // Otherwise we log any errors
+    if (updating) {
+      // formData.id = productId;
+      formData.append("id", productId);
+      updateProduct(formData);
+    } else {
+      addProduct(formData);
+    }
+
   });
 
-  // Does a post to the add route.
-  // Otherwise we log any errors
   function addProduct(formData) {
     $.ajax({
       url: "/api/add",
@@ -49,9 +77,52 @@ $(document).ready(function () {
     });
   }
 
+
+
+
+  // Update a given post, bring user to the blog page when done
+  function updateProduct(product) {
+    console.log(product);
+    $.ajax({
+        method: "PUT",
+        url: "/api/add/" + productId,
+        data: product,
+        contentType: false,
+        processData: false,
+        cache: false
+      })
+      .then(function (data) {
+        // window.location.href = "/collection";
+        console.log(data);
+      })
+    console.log("This is the product: " + product)
+  }
+
   function handleLoginErr(err) {
     console.log(err);
     $("#alert .msg").text(err);
     $("#alert").fadeIn(500);
+  }
+
+
+  // Gets post data for a post if we're editing
+  function getProductData(id) {
+    $.get("/api/add?product_id=" + id, function (data) {
+      if (data) {
+        console.log(data);
+        productId = data.id;
+        // If this post exists, prefill our cms forms with its data
+        categoryInput.val(data.category);
+        brandInput.val(data.brand);
+        productNameInput.val(data.product_name);
+        colorInput.val(data.color);
+        notesInput.val(data.notes);
+        photoUrl = data.photo;
+
+        // If we have a post with this id, set a flag for us to know to update the post
+        // when we hit submit
+        updating = true;
+      }
+    });
   }
 });

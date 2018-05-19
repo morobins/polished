@@ -53,20 +53,26 @@ module.exports = function (app) {
     
   });
 
-  // Get route for returning products of a specific category
-  //this works
-  // app.get("/api/products/category/:category", function (req, res) {
-  //   db.Products.findAll({
-  //       where: {
-  //         category: req.params.category
-  //       }
-  //     })
-  //     .then(function (categProd) {
-  //       res.json(categProd);
-  //     }).catch(function (err) {
-  //       res.json(err);
-  //     });
-  // });
+  app.get("/api/add", function(req,res) {
+    
+    if (!req.query) {
+     return res.json(false);
+    }
+
+    var productId = req.query.product_id;
+
+    db.Products.findOne({
+      where: {
+        id: productId
+      }
+    }).then(function(productData) {
+      res.json(productData);
+    }).catch(function(err) {
+      console.log(err);
+      res.json(err);
+    })
+
+  })
 
   // POST route for saving a new product
   //this works
@@ -132,18 +138,59 @@ module.exports = function (app) {
   });
 
   // PUT route for updating products
-  // app.put("/api/products", function (req, res) {
-  //   db.Products.update(req.body, {
-  //       where: {
-  //         id: req.body.id
-  //       }
-  //     })
-  //     .then(function (updateProd) {
-  //       res.json(updateProd);
-  //     }).catch(function (err) {
-  //       res.json(err);
-  //     });
-  // });
+  app.put("/api/add/:id", function (req, res) {
+
+    var form = new formidable.IncomingForm();
+
+    // parse information for form fields and incoming files
+    form.parse(req, function (err, fields, files) {
+      console.log(fields);
+      console.log(files.photo);
+
+      if (files.photo) {
+        // upload file to cloudinary, which'll return an object for the new image
+        cloudinary.uploader.upload(files.photo.path, function (result) {
+          console.log(result);
+          // create new user
+          db.Products.update({
+            category: fields.category,
+            brand: fields.brand,
+            product_name: fields.product_name,
+            color: fields.color,
+            notes: fields.notes,
+            photo: result.secure_url
+          }, {
+            where: {
+              id: req.params.id
+            }
+          }).then(function (updatedProductInfo) {
+            res.json(updatedProductInfo);
+          }).catch(function (err) {
+            console.log(err);
+            res.json(err);
+          });
+        });
+      } else {
+        db.Products.update({
+          category: fields.category,
+          brand: fields.brand,
+          product_name: fields.product_name,
+          color: fields.color,
+          notes: fields.notes,
+        }, {
+          where: {
+            id: req.params.id
+          }
+        }).then(function (updatedProductInfo) {
+          res.json(updatedProductInfo);
+        }).catch(function (err) {
+          console.log(err);
+          res.json(err);
+        });
+      }
+    });
+
+  });
 
 //======================================================//
 
