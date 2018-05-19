@@ -59,8 +59,8 @@ $('#searchsub').on('click', function (event) {
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr("data-productid", results[i].id);
-        deleteBtn.attr("data-toggle", "popover");
-        deleteBtn.attr("data-content", "This product has been deleted!");
+        deleteBtn.attr("data-toggle", "modal");
+        deleteBtn.attr("data-target", "#myModal");
         deleteBtn.addClass("delete btn btn-outline-danger");
         cardContent.append(deleteBtn);
 
@@ -90,9 +90,9 @@ $('#searchsub').on('click', function (event) {
       url: "/api/products/" + currentProduct,
       method: "DELETE"
     }).then(function (data) {
-     
-      // displayResults();
-      // window.location.href = "/search"
+      $('#deleteModal').modal('toggle');
+     $('#success').text("You're Product Has Been Deleted!");
+     $('#collectionLink').text("Click Here to See Your updated Collection");
       console.log(data);
     })
   }
@@ -105,8 +105,9 @@ $('#searchsub').on('click', function (event) {
   };
 
   $(document).on("click", "button.delete",  function () {
-    console.log("hi");
-    $(this).popover();
+    // console.log("hi");
+    // alert("This works!");
+    $(this).alert();
     handlePostDelete();
   }); 
 
