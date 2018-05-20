@@ -104,31 +104,23 @@ $('#searchsub').on('click', function (event) {
     window.location.href = "/add?post_id=" + currentProduct.id;
   };
 
-  // function confirmDelete() {
-  //   var yes = confirm("Are you sure you want to delete?");
-  //   if (yes)
-  //       return true;
-  //   else
-  //     return false;
-  // // popup with option to delete or not delete
-  // // if selection === true {
-  // // handlePostDelete();
-  // // else
-  // // go back to search page
-  // }
-
-  $(document).on("click", "button.delete", function () {
-    // confirmDelete();
-    // if (true) {
+  function confirmDelete() {
+    var yes = confirm("Are you sure you want to delete?");
+    if (yes) {
       handlePostDelete();
-    // } else {
-    //   return false;
-    // }
-    // console.log("hi");
-    // alert("This works!");
-    // $(this).alert();
-    // handlePostDelete();
-  });
+    }
+    else {
+      return false;
+    }
+  
+  // popup with option to delete or not delete
+  // if selection === true {
+  // handlePostDelete();
+  // else
+  // go back to search page
+  }
+
+  $(document).on("click", "button.delete", confirmDelete);
 
  
   
