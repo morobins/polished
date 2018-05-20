@@ -78,8 +78,8 @@ $(document).ready(function () {
       url: "/api/products/" + currentProduct,
       method: "DELETE"
     }).then(function(data) {
-      window.location.href = "/collection"
-      console.log(data);
+      // window.location.href = "/collection"
+      console.log(currentProduct);
     })
   }
 

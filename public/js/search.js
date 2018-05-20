@@ -90,6 +90,7 @@ $('#searchsub').on('click', function (event) {
       url: "/api/products/" + currentProduct,
       method: "DELETE"
     }).then(function (data) {
+      // console.log("This is the current product" + currentProduct)
       $('#deleteModal').modal('toggle');
       $('#success').text("You're Product Has Been Deleted!");
       $('#collectionLink').text("Click Here to See Your updated Collection");
@@ -117,18 +118,7 @@ $('#searchsub').on('click', function (event) {
   // // go back to search page
   // }
 
-  $(document).on("click", "button.delete", function () {
-    // confirmDelete();
-    // if (true) {
-      handlePostDelete();
-    // } else {
-    //   return false;
-    // }
-    // console.log("hi");
-    // alert("This works!");
-    // $(this).alert();
-    // handlePostDelete();
-  });
+  $(document).on("click", "button.delete", handlePostDelete);
 
  
   
