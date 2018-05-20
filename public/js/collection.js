@@ -96,6 +96,7 @@ $(document).ready(function () {
     })
     
   }
+
   
   $(document).on("click", "button.delete", handlePostDelete);
 

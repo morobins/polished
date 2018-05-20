@@ -91,8 +91,8 @@ $('#searchsub').on('click', function (event) {
       method: "DELETE"
     }).then(function (data) {
       $('#deleteModal').modal('toggle');
-     $('#success').text("You're Product Has Been Deleted!");
-     $('#collectionLink').text("Click Here to See Your updated Collection");
+      $('#success').text("You're Product Has Been Deleted!");
+      $('#collectionLink').text("Click Here to See Your updated Collection");
       console.log(data);
     })
   }
@@ -104,12 +104,34 @@ $('#searchsub').on('click', function (event) {
     window.location.href = "/add?post_id=" + currentProduct.id;
   };
 
-  $(document).on("click", "button.delete",  function () {
+  // function confirmDelete() {
+  //   var yes = confirm("Are you sure you want to delete?");
+  //   if (yes)
+  //       return true;
+  //   else
+  //     return false;
+  // // popup with option to delete or not delete
+  // // if selection === true {
+  // // handlePostDelete();
+  // // else
+  // // go back to search page
+  // }
+
+  $(document).on("click", "button.delete", function () {
+    // confirmDelete();
+    // if (true) {
+      handlePostDelete();
+    // } else {
+    //   return false;
+    // }
     // console.log("hi");
     // alert("This works!");
-    $(this).alert();
-    handlePostDelete();
-  }); 
+    // $(this).alert();
+    // handlePostDelete();
+  });
+
+ 
+  
 
   $(document).on("click", "button.edit", handlePostEdit);
 
