@@ -72,16 +72,33 @@ $(document).ready(function () {
   displayCards();
 
   // This function figures out which post we want to delete and then calls deletePost and reloads the page
-  function handlePostDelete() {
-    var currentProduct = $(this).attr("data-productid")
+  // function handlePostDelete() {
+  //   var currentProduct = $(this).attr("data-productid")
+  //   $.ajax({
+  //     url: "/api/products/" + currentProduct,
+  //     method: "DELETE"
+  //   }).then(function(data) {
+  //     window.location.href = "/collection"
+  //     console.log(data);
+  //   })
+  // }
+
+  function confirmDelete() {
+    var yes = confirm("Are you sure you want to delete?");
+    if (yes) {
+      var currentProduct = $(this).attr("data-productid")
     $.ajax({
       url: "/api/products/" + currentProduct,
       method: "DELETE"
-    }).then(function(data) {
+    }).then(function (data) {
       window.location.href = "/collection"
-      console.log(data);
+          console.log(data);
     })
-  }
+    }
+    else {
+      return false;
+    }
+  };
 
   // This function figures out which post we want to edit and takes it to the appropriate url
 
@@ -98,7 +115,7 @@ $(document).ready(function () {
   }
 
   
-  $(document).on("click", "button.delete", handlePostDelete);
+  $(document).on("click", "button.delete", confirmDelete);
 
   $(document).on("click", "button.edit", handlePostEdit);
 

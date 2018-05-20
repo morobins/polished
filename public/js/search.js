@@ -105,13 +105,38 @@ $('#searchsub').on('click', function (event) {
   };
 
   function confirmDelete() {
-    var yes = confirm("Are you sure you want to delete?");
-    if (yes) {
-      handlePostDelete();
-    }
-    else {
-      return false;
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this product.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((handlePostDelete) => {
+      if (handlePostDelete) {
+        swal("Poof! Your product has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your product is safe!");
+      }
+    });
+    // var yes = confirm("Are you sure you want to delete?");
+    // if (yes) {
+    //   var currentProduct = $(this).attr("data-productid")
+    // $.ajax({
+    //   url: "/api/products/" + currentProduct,
+    //   method: "DELETE"
+    // }).then(function (data) {
+    //   $('#deleteModal').modal('toggle');
+    //   $('#success').text("You're Product Has Been Deleted!");
+    //   $('#collectionLink').text("Click Here to See Your updated Collection");
+    //   console.log(data);
+    // })
+    // }
+    // else {
+    //   return false;
+    //}
   
   // popup with option to delete or not delete
   // if selection === true {
@@ -122,6 +147,7 @@ $('#searchsub').on('click', function (event) {
 
   $(document).on("click", "button.delete", confirmDelete);
 
+  // $(document).on("click", "button.delete", handlePostDelete);
  
   
 
