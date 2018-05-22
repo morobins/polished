@@ -1,7 +1,5 @@
 $('#searchsub').on('click', function (event) {
-
   $("form").hide();
-
   event.preventDefault();
 
   function displayResults() {
@@ -38,12 +36,10 @@ $('#searchsub').on('click', function (event) {
       url: queryURL,
       method: 'GET'
     }).then(function (results) {
-      // res.json(results);
       console.log(results);
 
       for (var i = 0; i < results.length; i++) {
 
-        // console.log(response.hits[i])
         var cardHolder = $(".card-columns")
         //create a div with a col class
         var cardCol = $('<div>');
@@ -97,8 +93,7 @@ $('#searchsub').on('click', function (event) {
         cardHolder.append(cardCol);
       }
     });
-
-  }
+  };
 
   displayResults();
 
@@ -112,7 +107,7 @@ $('#searchsub').on('click', function (event) {
       console.log(data);
       $("[data-productid=" + productId + "]").remove();
     })
-  }
+  };
 
   // This function figures out which post we want to edit and takes it to the appropriate url
   function handlePostEdit() {
@@ -145,11 +140,8 @@ $('#searchsub').on('click', function (event) {
       });
   };
 
-
   $(document).on("click", "button.delete",
     confirmDelete);
 
-
   $(document).on("click", "button.edit", handlePostEdit);
-
 });

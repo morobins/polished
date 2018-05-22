@@ -4,24 +4,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Polished</title>
-
 	<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/reset.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 	<link rel="icon" href="./favicon.png">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
 
-		<div class="d-flex flex-row justify-content-end">
-	<!-- <header role="banner"> -->
-
+	<div class="d-flex flex-row justify-content-end">
 		<nav class="main-nav">
 			<ul>
-				<!-- insert more links here -->
 				<li>
 					<a class="cd-signin" href="#0">Sign in</a>
 				</li>
@@ -30,13 +25,11 @@
 				</li>
 			</ul>
 		</nav>
-	<!-- </header> -->
-</div>
+	</div>
 
 	<div class="row align-items-center justify-content-center" id="title-row">
 		<div class="col-12 col-md-6" id="title">
 			<img src="images/title.jpg" alt="title" class="img-fluid">
-
 			<div class="cd-user-modal">
 				<!-- this is the entire modal form, including the background -->
 				<div class="cd-user-modal-container">
@@ -96,7 +89,7 @@
 								<label class="image-replace cd-password" for="signup-password">Password</label>
 								<input class="full-width has-padding has-border" id="signup-password" type="text" placeholder="Password">
 								<a href="#0" class="hide-password">Hide</a>
-								<!-- <span class="cd-error-message">Error!</span> -->
+								<div class='errorMsg'></div>
 							</p>
 
 							<p class="fieldset">
@@ -135,7 +128,6 @@
 			</div>
 			<!-- cd-user-modal -->
 
-
 			<script src="https://code.jquery.com/jquery.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 			<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -145,10 +137,6 @@
 			<script src="./js/login.js"></script>
 			<script src="./js/signup.js"></script>
 			<script src="./js/members.js"></script>
-
-
-
-
 
 </body>
 
