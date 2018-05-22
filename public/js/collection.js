@@ -82,6 +82,7 @@ $(document).ready(function () {
     });
   };
 
+
   function confirmDelete() {
     var productId = $(this).attr("data-productid");
     console.log(productId);

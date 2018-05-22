@@ -149,6 +149,7 @@ $('#searchsub').on('click', function (event) {
   $(document).on("click", "button.delete",
     confirmDelete);
 
+
   $(document).on("click", "button.edit", handlePostEdit);
 
 });
