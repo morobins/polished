@@ -569,19 +569,6 @@ xsigin/signup popup
   margin-top: 200px;
 }
 
-/* 
- #color-back{
-background-image: url("../images/color.jpg");
-background-repeat: no-repeat; 
-background-size: cover;
-
-}  */
-
-/* .form-group{
-  font-family: 'Italianno', cursive;
-  
-} */
-
 h1 {
   font-family: 'Great Vibes', cursive;
 }
@@ -590,5 +577,4 @@ h1 {
   background-image: url("../images/drippingPolish.png");
   background-repeat: no-repeat;
   background-size: cover;
-  /* margin: 4px 0 0 5%; */
 }
