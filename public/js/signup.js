@@ -15,15 +15,6 @@ $(document).ready(function () {
     // append password to form (password: '12345')
     formData.append("password", passwordInput.val().trim());
 
-    // if ($("#file-input").prop("files")[0]) {
-    //   // append photo information to form (photo: {objOfPhotoInfo})
-    //   formData.append("photo", $("#file-input").prop("files")[0], $("#file-input").prop("files")[0].name);
-    // }
-    // console.log($("#file-input").prop("files"));
-
-    // if (!userData.email || !userData.password) {
-    //   return;
-    // }
     // If we have an email and password, run the signUpUser function
     signUpUser(formData);
     emailInput.val("");
@@ -43,7 +34,6 @@ $(document).ready(function () {
     }).then(function (data) {
       console.log(data);
       window.location.replace(data)
-      // If there's an error, handle it by throwing up a bootstrap alert
     });
   }
 

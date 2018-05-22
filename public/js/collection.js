@@ -17,6 +17,7 @@ $(document).ready(function () {
         //create a div with a col class
         var cardCol = $('<div>');
         cardCol.addClass("col s4");
+        cardCol.attr("data-productid", results[i].id);
 
         //create the card
         var card = $('<div>');
@@ -55,7 +56,7 @@ $(document).ready(function () {
         var editBtn = $("<a>");
         editBtn.text("Edit");
         editBtn.attr("data-productid", results[i].id)
-        editBtn.attr("href", "/add?product_id="+ results[i].id)
+        editBtn.attr("href", "/add?product_id=" + results[i].id)
         editBtn.addClass("edit btn btn-outline-secondary btnMargin");
         cardContent.append(editBtn);
 
@@ -63,58 +64,62 @@ $(document).ready(function () {
         card.append(cardContent);
         cardCol.append(card);
         cardHolder.append(cardCol);
-      }
-     
+      };
     });
-
   };
 
   displayCards();
 
   // This function figures out which post we want to delete and then calls deletePost and reloads the page
-  // function handlePostDelete() {
-  //   var currentProduct = $(this).attr("data-productid")
-  //   $.ajax({
-  //     url: "/api/products/" + currentProduct,
-  //     method: "DELETE"
-  //   }).then(function(data) {
-  //     window.location.href = "/collection"
-  //     console.log(data);
-  //   })
-  // }
-
-  function confirmDelete() {
-    var yes = confirm("Are you sure you want to delete?");
-    if (yes) {
-      var currentProduct = $(this).attr("data-productid")
+  function handlePostDelete(productId) {
+    console.log(productId);
     $.ajax({
-      url: "/api/products/" + currentProduct,
+      url: "/api/products/" + productId,
       method: "DELETE"
     }).then(function (data) {
-      window.location.href = "/collection"
-          console.log(data);
-    })
-    }
-    else {
-      return false;
-    }
+      console.log(data);
+      $("[data-productid=" + productId + "]").remove();
+    });
+  };
+
+  function confirmDelete() {
+    var productId = $(this).attr("data-productid");
+    console.log(productId);
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this product.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((result) => {
+        console.log(result);
+        if (result) {
+          console.log(productId);
+          handlePostDelete(productId);
+
+          swal("Poof! Your product has been deleted!", {
+            icon: "success",
+          });
+        } else {
+          swal("Your product is safe!");
+        };
+      });
   };
 
   // This function figures out which post we want to edit and takes it to the appropriate url
-
   function handlePostEdit() {
     var currentProduct = $(this).attr("data-productid")
     $.ajax({
       url: "/api/products/" + currentProduct,
       method: "PUT"
-    }).then(function(data) {
+    }).then(function (data) {
       window.location.href = "/add?post_id=" + currentProduct.id;
       console.log(data);
-    })
-    
-  }
+    });
+  };
 
-  
+
   $(document).on("click", "button.delete", confirmDelete);
 
   $(document).on("click", "button.edit", handlePostEdit);
