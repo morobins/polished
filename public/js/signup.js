@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  var db = require("../../models");
+
   // Getting references to our form and input
   var signUpForm = $("form.signup");
   var emailInput = $("input#signup-email");
@@ -23,19 +25,31 @@ $(document).ready(function () {
 
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
-  function signUpUser(formData) {
-    $.ajax({
-      url: "/api/signup",
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      method: 'POST',
-    }).then(function (data) {
-      console.log(data);
-      window.location.replace(data)
-    });
-  }
+  db.User.findOne ({
+    where: {
+      email: email
+    }
+  }).then(function (user) {
+    if (user) {
+      return done (null, false, {
+        message: "This email already has an account"
+      });
+    } else {
+      function signUpUser(formData) {
+        $.ajax({
+          url: "/api/signup",
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          method: 'POST',
+        }).then(function (data) {
+          console.log(data);
+          window.location.replace(data)
+        });
+      }
+    }
+  });
 
   function handleLoginErr(err) {
     console.log(err);
