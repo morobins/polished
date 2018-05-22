@@ -59,7 +59,7 @@ $(document).ready(function () {
       updateProduct(formData);
     } else {
       addProduct(formData);
-    }
+    };
 
   });
 
@@ -74,35 +74,37 @@ $(document).ready(function () {
     }).then(function (data) {
       console.log(data);
       $("#added").text("Your product has been added!")
+      newATag = $('<a>')
+      newATag.attr("href", "../collection")
+      newATag.text(" Find it here!")
+      $("#added").append(newATag);
+
     });
-  }
-
-
-
+  };
 
   // Update a given post, bring user to the blog page when done
   function updateProduct(product) {
     console.log(product);
     $.ajax({
-        method: "PUT",
-        url: "/api/add/" + productId,
-        data: product,
-        contentType: false,
-        processData: false,
-        cache: false
-      })
-      .then(function (data) {
-        // window.location.href = "/collection";
-        console.log(data);
-      })
+      method: "PUT",
+      url: "/api/add/" + productId,
+      data: product,
+      contentType: false,
+      processData: false,
+      cache: false
+    })
+    .then(function (data) {
+      // window.location.href = "/collection";
+      console.log(data);
+    });
     console.log("This is the product: " + product)
-  }
+  };
 
   function handleLoginErr(err) {
     console.log(err);
     $("#alert .msg").text(err);
     $("#alert").fadeIn(500);
-  }
+  };
 
 
   // Gets post data for a post if we're editing
@@ -122,7 +124,7 @@ $(document).ready(function () {
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit
         updating = true;
-      }
+      };
     });
-  }
+  };
 });

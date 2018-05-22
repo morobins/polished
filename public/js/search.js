@@ -11,8 +11,28 @@ $('#searchsub').on('click', function (event) {
     var productInput = $('#product').val().trim();
     var colorInput = $('#color').val().trim();
 
-    var queryURL =
-      "/api/products?category=" + categoryInput || "&brand=" + brandInput || "&color=" + colorInput || "&product_name=" + productInput;
+    // var queryURL =
+    //   "/api/products?category=" + categoryInput || "&brand=" + brandInput || "&color=" + colorInput || "&product_name=" + productInput;
+
+    var queryURL = "/api/products?";
+
+    if (categoryInput) {
+      queryURL += "category=" + categoryInput + "&";
+    }
+
+    if (brandInput) {
+      queryURL += "brand=" + brandInput + "&";
+    }
+
+    if (productInput) {
+      queryURL += "product_name=" + productInput + "&";
+    }
+
+    if (colorInput) {
+      queryURL += "color=" + colorInput + "&";
+    }
+
+    console.log(queryURL);
 
     $.ajax({
       url: queryURL,
@@ -28,6 +48,7 @@ $('#searchsub').on('click', function (event) {
         //create a div with a col class
         var cardCol = $('<div>');
         cardCol.addClass("col s4");
+        cardCol.attr("data-productid", results[i].id);
 
         //create the card
         var card = $('<div>');
@@ -59,8 +80,6 @@ $('#searchsub').on('click', function (event) {
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr("data-productid", results[i].id);
-        deleteBtn.attr("data-toggle", "modal");
-        deleteBtn.attr("data-target", "#myModal");
         deleteBtn.addClass("delete btn btn-outline-danger");
         cardContent.append(deleteBtn);
 
@@ -84,44 +103,52 @@ $('#searchsub').on('click', function (event) {
   displayResults();
 
   // This function figures out which post we want to delete and then calls deletePost and reloads the page
-  function handlePostDelete() {
-    var currentProduct = $(this).attr("data-productid")
+  function handlePostDelete(productId) {
+    console.log(productId);
     $.ajax({
-      url: "/api/products/" + currentProduct,
+      url: "/api/products/" + productId,
       method: "DELETE"
     }).then(function (data) {
-      // console.log("This is the current product" + currentProduct)
-      $('#deleteModal').modal('toggle');
-      $('#success').text("You're Product Has Been Deleted!");
-      $('#collectionLink').text("Click Here to See Your updated Collection");
       console.log(data);
+      $("[data-productid=" + productId + "]").remove();
     })
   }
 
   // This function figures out which post we want to edit and takes it to the appropriate url
   function handlePostEdit() {
     var currentProduct = $(this).attr("data-productid")
-
     window.location.href = "/add?post_id=" + currentProduct.id;
   };
 
-  // function confirmDelete() {
-  //   var yes = confirm("Are you sure you want to delete?");
-  //   if (yes)
-  //       return true;
-  //   else
-  //     return false;
-  // // popup with option to delete or not delete
-  // // if selection === true {
-  // // handlePostDelete();
-  // // else
-  // // go back to search page
-  // }
+  function confirmDelete() {
+    var productId = $(this).attr("data-productid");
+    console.log(productId);
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this product.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((result) => {
+        console.log(result);
+        if (result) {
+          console.log(productId);
+          handlePostDelete(productId);
 
-  $(document).on("click", "button.delete", handlePostDelete);
+          swal("Poof! Your product has been deleted!", {
+            icon: "success",
+          });
+        } else {
+          swal("Your product is safe!");
+        }
+      });
+  };
 
- 
-  
+
+  $(document).on("click", "button.delete",
+    confirmDelete);
+
 
   $(document).on("click", "button.edit", handlePostEdit);
 
