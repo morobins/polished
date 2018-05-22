@@ -220,7 +220,7 @@ module.exports = function (app) {
           req.login(userInfo, function (err) {
             if (err) {
               console.log(err)
-              return res.status(422).json(err);
+              res.status(422).json(err);
             }
             console.log(req.user);
             res.json("/home");
