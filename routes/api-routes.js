@@ -12,9 +12,9 @@ var db = require("../models");
 var passport = require("../config/passport");
 
 cloudinary.config({
-  CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
-  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 // Routes
@@ -220,7 +220,7 @@ module.exports = function (app) {
           req.login(userInfo, function (err) {
             if (err) {
               console.log(err)
-              return res.status(422).json(err);
+              res.status(422).json(err);
             }
             console.log(req.user);
             res.json("/home");
