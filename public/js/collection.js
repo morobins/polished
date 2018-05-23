@@ -1,9 +1,6 @@
 $(document).ready(function () {
   /* global moment */
-
   function displayCards() {
-    // $('.card').empty();
-
     $.ajax({
       url: "/api/products",
       method: 'GET',
@@ -82,7 +79,6 @@ $(document).ready(function () {
     });
   };
 
-
   function confirmDelete() {
     var productId = $(this).attr("data-productid");
     console.log(productId);
@@ -120,9 +116,7 @@ $(document).ready(function () {
     });
   };
 
-
   $(document).on("click", "button.delete", confirmDelete);
 
   $(document).on("click", "button.edit", handlePostEdit);
-
 });
