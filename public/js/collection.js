@@ -94,8 +94,9 @@ $(document).ready(function () {
         dangerMode: true,
       })
       .then((result) => {
-        console.log(result);
+        console.log("This is the result: ", result);
         if (result) {
+
           console.log(productId);
           handlePostDelete(productId);
 

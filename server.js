@@ -2,6 +2,9 @@
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
+var cors = require('cors')
+ 
+
 
 var session = require("express-session");
 // Requiring passport as we've configured it
@@ -11,6 +14,9 @@ var passport = require("./config/passport");
 // =============================================================
 var app = express();
 var PORT = process.env.PORT || 8080;
+
+//allow cors requests
+app.use(cors())
 
 // Requiring our models for syncing
 var db = require("./models");
