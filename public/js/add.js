@@ -60,7 +60,6 @@ $(document).ready(function () {
     } else {
       addProduct(formData);
     };
-
   });
 
   function addProduct(formData) {
@@ -105,7 +104,6 @@ $(document).ready(function () {
     $("#alert .msg").text(err);
     $("#alert").fadeIn(500);
   };
-
 
   // Gets post data for a post if we're editing
   function getProductData(id) {
