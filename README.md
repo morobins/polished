@@ -2,7 +2,7 @@
 
 **Description:** A website for creating a database for cosmetics. Users can add new products to their database (including a photo – cloud storage through Cloudinary), search their database, and edit and delete product as necessary.
 
- 
+ **Sample Login: Email:** sample@polished.com **Password:** welcome
 
 **Main Node.js Libraries used:** Express, Sequelize, Sessions, Passport, Cloudinary and  Formidable.
 
